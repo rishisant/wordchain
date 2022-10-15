@@ -51,7 +51,7 @@ word = ""
 # Implementing Actual Game Here
 wordarr = []
 power = 100
-wordsleft = 10
+wordsleft = 3
 print('power is: ' + str(power) + ' and words left = ' + str(wordsleft))
 word = input('input word here: ')
 power = decrease_power(power, word)
@@ -59,8 +59,11 @@ wordarr.append(word)
 prevword = word
 wordsleft -= 1
 while (word != 'q' or word != 'quit'):
+    if (wordsleft == 0 and power != 0):
+        print('you lost.')
+        break
     if (power <= 0):
-        print('you won with ' + str(wordsleft) + '!')
+        print('you won with ' + str(wordsleft) + ' words left!')
         print('the words you used were: ')
         for word in wordarr:
             print(word)
