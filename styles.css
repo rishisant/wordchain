@@ -1,13 +1,42 @@
+@font-face {
+    font-family: chainedMain;
+    src: url(./font/Chained_main-Regular.ttf)
+}
+
 body {
-    background-image: url(./img_src/chained_bg1.png)
+    background-image: url(./img_src/chained_bg1.png);
+    font-family: chainedMain;
+    color: white;
+}
+
+#chainedmodetext {
+    text-shadow: 2px 2px 8px #710000;
+}
+
+#inpbox {
+    padding: 10px;
+    border: 0;
+    box-shadow: 0 0 15px 4px rgaba(0, 0, 0, 0.06);
+    border-radius: 20px;
+    font-family: chainedMain;
+    font-size: 20px;
+    text-align: center;
 }
 
 #logo {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    height: 25%;
-    width: 25%;
+    height: 22.5%;
+    width: 22.5%;
+}
+
+#logo_small {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 15%;
+    width: 15%;
 }
 
 .menubuttons {
@@ -18,6 +47,26 @@ body {
 
 #button_spacer {
     margin-bottom: 10px;
+}
+
+#spacer {
+    margin-bottom: 20px;
+}
+
+#spacer_half {
+    margin-bottom: 12px;
+}
+
+bigtext {
+    font-size: 70px;
+}
+
+#instext {
+    text-align: center;
+    color: white;
+    font-size: 40px;
+    -webkit-text-stroke: 0.05px black;
+    filter: drop-shadow(1px 1px 11px #000);
 }
 /* #easy_mode {
     height: 20%;
@@ -41,16 +90,65 @@ body {
 
 #easy_mode:hover {
     filter: drop-shadow(1px 1px 11px #000);
+    cursor: pointer;
 }
 
 #medium_mode:hover {
     filter: drop-shadow(1px 1px 11px #000);
+    cursor: pointer;
 }
 
 #hard_mode:hover {
     filter: drop-shadow(1px 1px 11px #000);
+    cursor: pointer;
 }
 
 #chained_mode:hover {
     filter: drop-shadow(1px 1px 11px rgb(166, 76, 76));
+    cursor: pointer;
+}
+
+#readybutton:hover {
+    filter: drop-shadow(1px 1px 11px rgb(255, 255, 255));
+    cursor: pointer;
+}
+
+#gametext {
+    text-align: center;
+    color: white;
+    font-size: 40px;
+    -webkit-text-stroke: 0.05px black;
+}
+
+/* Animations */
+
+
+.floating { 
+    animation-name: floating;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    margin-left: 0px;
+    margin-top: 10px;
+}
+
+.floatingfast { 
+    animation-name: floatingfast;
+    animation-duration: 0.75s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    margin-left: 0px;
+    margin-top: 10px;
+}
+ 
+@keyframes floating {
+    0% { transform: translate(0,  0px); }
+    50%  { transform: translate(0, 25px); }
+    100%   { transform: translate(0, -0px); }   
+}
+
+@keyframes floatingfast {
+    0% { transform: translate(0, 0px); }
+    50%  { transform: translate(0, 35px); }
+    100%   { transform: translate(0, -0px); }   
 }
