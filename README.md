@@ -1,2 +1,2 @@
 # word-chain
-HACKTX2022
+Shiritori!
