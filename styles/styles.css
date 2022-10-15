@@ -1,10 +1,10 @@
 @font-face {
     font-family: chainedMain;
-    src: url(./font/Chained_main-Regular.ttf)
+    src: url(/font/Chained_main-Regular.ttf)
 }
 
 body {
-    background-image: url(./img_src/chained_bg1.png);
+    background-image: url(/img_src/chained_bg1.png);
     font-family: chainedMain;
     color: white;
 }
