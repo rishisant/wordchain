@@ -61,6 +61,14 @@ bigtext {
     font-size: 70px;
 }
 
+smalltext {
+    font-size: 35px;
+}
+
+bluehi {
+    text-shadow: 2px 2px 15px #51D0C4;
+}
+
 #instext {
     text-align: center;
     color: white;
