@@ -1,3 +1,31 @@
 #logo {
-    align-items: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 25%;
+    width: 25%;
+}
+
+.menubuttons {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 25%;
+    width: 25%;
+}
+
+#easy_mode:hover {
+    filter: drop-shadow(1px 1px 11px #000);
+}
+
+#medium_mode:hover {
+    filter: drop-shadow(1px 1px 11px #000);
+}
+
+#hard_mode:hover {
+    filter: drop-shadow(1px 1px 11px #000);
+}
+
+#chained_mode:hover {
+    filter: drop-shadow(1px 1px 11px rgb(166, 76, 76));
 }
