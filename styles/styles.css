@@ -1,6 +1,6 @@
 @font-face {
     font-family: chainedMain;
-    src: url(/font/Chained_main-Regular.ttf)
+    src: url(../font/Chained_main-Regular.ttf)
 }
 
 #yep {
@@ -20,7 +20,7 @@
 }
 
 body {
-    background-image: url(/img_src/chained_bg3.png);
+    background-image: url(../img_src/chained_bg3.png);
     font-family: chainedMain;
     color: white;
 }
