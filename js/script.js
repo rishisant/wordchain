@@ -4,6 +4,8 @@ var all_topics;
 var master_dictionary;
 var game_dictionary;
 var chosen_topics;
+var words_left;
+var power;
 
 // what did you enter??
 function change() {
@@ -45,51 +47,136 @@ function choosechained() {
 
 let minv;
 let maxv;
+
 function startgame() {
-    loadTopics();
-    loadMasterDictionary();
-    
-    minv = 0;
-    maxv = 5;
-    randchoice = Math.floor(Math.random() * (maxv-minv));
-    if (randchoice == 0) {
-        selectTopic("fixed", "countries");
-    }
-    else if (randchoice == 1) {
-        selectTopic("fixed", "animals");
-    }
-    else if (randchoice == 2) {
-        selectTopic("fixed", "league_characters");
-    }
-    else if (randchoice == 3) {
-        selectTopic("fixed", "adjectives");
-    }
-    else {
-        selectTopic("fixed", "body_parts");
-    }
-    
     // set topic to something
     // query from arr
     // done
+
     if (sessionStorage.getItem("easymode") == "true") {
         location.replace('./easymode.html')
+        loadTopics();
+        loadMasterDictionary();
+        
+        minv = 0;
+        maxv = 5;
+        randchoice = Math.floor(Math.random() * (maxv-minv));
+        if (randchoice == 0) {
+            selectTopic("fixed", "countries");
+        }
+        else if (randchoice == 1) {
+            selectTopic("fixed", "animals");
+        }
+        else if (randchoice == 2) {
+            selectTopic("fixed", "league_characters");
+        }
+        else if (randchoice == 3) {
+            selectTopic("fixed", "adjectives");
+        }
+        else {
+            selectTopic("fixed", "body_parts");
+        }
+        words_left = 10;
     }
     else if (sessionStorage.getItem("mediummode") == "true") {
         location.replace('./mediummode.html')
+        loadTopics();
+        loadMasterDictionary();
+        
+        minv = 0;
+        maxv = 5;
+        randchoice = Math.floor(Math.random() * (maxv-minv));
+        if (randchoice == 0) {
+            selectTopic("fixed", "countries");
+        }
+        else if (randchoice == 1) {
+            selectTopic("fixed", "animals");
+        }
+        else if (randchoice == 2) {
+            selectTopic("fixed", "league_characters");
+        }
+        else if (randchoice == 3) {
+            selectTopic("fixed", "adjectives");
+        }
+        else {
+            selectTopic("fixed", "body_parts");
+        }
+        words_left = 8;
     }
     else if (sessionStorage.getItem("hardmode") == "true") {
         location.replace('./hardmode.html')
+        loadTopics();
+        loadMasterDictionary();
+        
+        minv = 0;
+        maxv = 5;
+        randchoice = Math.floor(Math.random() * (maxv-minv));
+        if (randchoice == 0) {
+            selectTopic("fixed", "countries");
+        }
+        else if (randchoice == 1) {
+            selectTopic("fixed", "animals");
+        }
+        else if (randchoice == 2) {
+            selectTopic("fixed", "league_characters");
+        }
+        else if (randchoice == 3) {
+            selectTopic("fixed", "adjectives");
+        }
+        else {
+            selectTopic("fixed", "body_parts");
+        }
+        words_left = 5;
     }
     else {
         location.replace('./chainedmode.html')
+        loadTopics();
+        loadMasterDictionary();
+        
+        minv = 0;
+        maxv = 5;
+        randchoice = Math.floor(Math.random() * (maxv-minv));
+        if (randchoice == 0) {
+            selectTopic("fixed", "countries");
+        }
+        else if (randchoice == 1) {
+            selectTopic("fixed", "animals");
+        }
+        else if (randchoice == 2) {
+            selectTopic("fixed", "league_characters");
+        }
+        else if (randchoice == 3) {
+            selectTopic("fixed", "adjectives");
+        }
+        else {
+            selectTopic("fixed", "body_parts");
+        }
+        words_left = 3;
     }
 }
 
-function animTrigger() {
-    document.getElementById("power").style.animation="pulsate_g 1.5s 1";
-    setTimeout(function() {
+function chain() {
+    correct = false;
+    correct_words = [];
+    text = document.getElementById("inptxt").value;
+    if (text in master_dictionary) {
+        correct = true;
+        words_left--;
+        correct_words.add(text);
+        document.getElementById("power").style.animation="pulsate_g 1.5s 1";
+        setTimeout(function() {
+            document.getElementById("power").style.animation = '';
+        }, 1700);
+        document.getElementsByClassName("floating")[0].innerHTML = "<bigtext id=\"power\">" + power + "<sub>" + words_left + "</sub></bigtext></div>";
+    }
+    else {
+        document.getElementById("power").style.animation="pulsate_r 1.5s 1";
+        setTimeout(function() {
         document.getElementById("power").style.animation = '';
-    }, 1700);
+        }, 1700);
+        words_left--;
+        document.getElementsByClassName("floating")[0].innerHTML = "<bigtext id=\"power\">" + power + "<sub>" + words_left + "</sub></bigtext></div>";
+    }
 }
 
 function loadTopics(filename) {
