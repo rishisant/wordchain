@@ -7,6 +7,8 @@ var chosen_topics;
 let words_left;
 let power = 100;
 var score = {
+    '\'': 0,
+    ' ': 0,
     'a': 2,
     'b': 6,
     'c': 6,
@@ -33,7 +35,6 @@ var score = {
     'x': 16,
     'y': 8,
     'z': 20,
-    ' ': 0,
 };
 
 
