@@ -43,11 +43,30 @@ function choosechained() {
     location.replace('./html/instructions.html')
 }
 
+let minv;
+let maxv;
 function startgame() {
     loadTopics();
     loadMasterDictionary();
-    selectTopic("fixed", "countries");
-   
+    
+    minv = 0;
+    maxv = 5;
+    randchoice = Math.floor(Math.random() * (maxv-minv));
+    if (randchoice == 0) {
+        selectTopic("fixed", "countries");
+    }
+    else if (randchoice == 1) {
+        selectTopic("fixed", "animals");
+    }
+    else if (randchoice == 2) {
+        selectTopic("fixed", "league_characters");
+    }
+    else if (randchoice == 3) {
+        selectTopic("fixed", "adjectives");
+    }
+    else {
+        selectTopic("fixed", "body_parts");
+    }
     
     // set topic to something
     // query from arr
@@ -71,8 +90,6 @@ function animTrigger() {
     setTimeout(function() {
         document.getElementById("power").style.animation = '';
     }, 1700);
-
-
 }
 
 function loadTopics(filename) {
