@@ -6,6 +6,34 @@ var game_dictionary;
 var chosen_topics;
 var words_left;
 var power;
+var score = {
+    'a': 2,
+    'b': 6,
+    'c': 6,
+    'd': 4,
+    'e': 2,
+    'f': 8,
+    'g': 4,
+    'h': 8,
+    'i': 2,
+    'j': 16,
+    'k': 10,
+    'l': 2,
+    'm': 6,
+    'n': 2,
+    'o': 2,
+    'p': 6,
+    'q': 20,
+    'r': 2,
+    's': 2,
+    't': 2,
+    'u': 2,
+    'v': 8,
+    'w': 8,
+    'x': 16,
+    'y': 8,
+    'z': 20,
+};
 
 // what did you enter??
 function change() {
@@ -155,11 +183,21 @@ function startgame() {
     }
 }
 
+function return_power(word) {
+    power = 0;
+    word = word.toLowerCase();
+    for(let i = 0; i < word.length; ++i) {
+        power += score[word[i]];
+    }
+
+    return power;
+}
+
 function chain() {
     correct = false;
     correct_words = [];
-    text = document.getElementById("inptxt").value;
-    if (text in master_dictionary) {
+    text = document.getElementById("inpbox").value;
+    if (master_dictionary.has(text)) {
         correct = true;
         words_left--;
         correct_words.add(text);
@@ -167,6 +205,7 @@ function chain() {
         setTimeout(function() {
             document.getElementById("power").style.animation = '';
         }, 1700);
+        power -= return_power(text);
         document.getElementsByClassName("floating")[0].innerHTML = "<bigtext id=\"power\">" + power + "<sub>" + words_left + "</sub></bigtext></div>";
     }
     else {
