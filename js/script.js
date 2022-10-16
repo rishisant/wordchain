@@ -126,7 +126,7 @@ function chain() {
         if (sessionStorage.getItem("easymode") == "true") { words_left = 10; }
         else if (sessionStorage.getItem("mediummode") == "true") { words_left = 8; }
         else if (sessionStorage.getItem("hardmode") == "true") { words_left = 5; }
-        else { words_left = 3; }
+        else {words_left = 3; }
         if (randTopicInt() == 0) {
             selectTopic("fixed", "countries"); 
             document.getElementById("topic").innerHTML = "Topic: Countries";
@@ -191,6 +191,9 @@ function chain() {
                 // }, 1700);
                 power = power - return_power(text);
                 document.getElementsByClassName("floating")[0].innerHTML = "<bigtext id=\"power\">" + power + "<sub>" + words_left + "</sub></bigtext></div>";
+                if (words_left == 0 && power <= 0) {
+                    location.replace('./win.html');
+                }
             }
             else {
                 correct = false;
@@ -227,10 +230,10 @@ function chain() {
             }
             document.getElementsByClassName("floating")[0].innerHTML = "<bigtext id=\"power\">" + power + "<sub>" + words_left + "</sub></bigtext></div>";
         }
-        if (words_left == 0 && power != 0) {
+        if (words_left == 0 && power > 0) {
             location.replace('./credits.html')
         }
-        else if (words_left > 0 && power <= 0) {
+        else if (words_left >= 0 && power <= 0) {
             correct_words = [];
             location.replace('./win.html');
         }
