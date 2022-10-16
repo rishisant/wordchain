@@ -162,10 +162,14 @@ function chain() {
             correct = true;
             words_left--;
             correct_words.push(text);
-            document.getElementById("power").style.animation="pulsate_g 1.5s 1";
+            document.getElementsByClassName("floating")[0].style.animation = "pulsate_g 1.5s 1";
             setTimeout(function() {
-                document.getElementById("power").style.animation = '';
+                document.getElementsByClassName("floating")[0].style.animation = '';
             }, 1700);
+            // document.getElementById("power").style.animation="pulsate_g 1.5s 1";
+            // setTimeout(function() {
+            //     document.getElementById("power").style.animation = '';
+            // }, 1700);
             power = power - return_power(text);
             document.getElementsByClassName("floating")[0].innerHTML = "<bigtext id=\"power\">" + power + "<sub>" + words_left + "</sub></bigtext></div>";
             
@@ -177,20 +181,28 @@ function chain() {
                 correct = true;
                 words_left--;
                 correct_words.push(text);
-                document.getElementById("power").style.animation="pulsate_g 1.5s 1";
+                document.getElementsByClassName("floating")[0].style.animation = "pulsate_g 1.5s 1";
                 setTimeout(function() {
-                    document.getElementById("power").style.animation = '';
+                document.getElementsByClassName("floating")[0].style.animation = '';
                 }, 1700);
+                // document.getElementById("power").style.animation="pulsate_g 1.5s 1";
+                // setTimeout(function() {
+                //     document.getElementById("power").style.animation = '';
+                // }, 1700);
                 power = power - return_power(text);
                 document.getElementsByClassName("floating")[0].innerHTML = "<bigtext id=\"power\">" + power + "<sub>" + words_left + "</sub></bigtext></div>";
             }
             else {
                 correct = false;
                 console.log("wrong word " + text);
-                document.getElementById("power").style.animation="pulsate_r 1.5s 1";
+                document.getElementsByClassName("floating")[0].style.animation = "pulsate_r 1.5s 1";
                 setTimeout(function() {
-                document.getElementById("power").style.animation = '';
+                document.getElementsByClassName("floating")[0].style.animation = '';
                 }, 1700);
+                // document.getElementById("power").style.animation="pulsate_r 1.5s 1";
+                // setTimeout(function() {
+                // document.getElementById("power").style.animation = '';
+                // }, 1700);
                 words_left--;
                 if (words_left == 0 && power != 0) {
                     location.replace('./credits.html')
@@ -201,10 +213,14 @@ function chain() {
         else {
             correct = false;
             console.log("wrong word " + text);
-            document.getElementById("power").style.animation="pulsate_r 1.5s 1";
-            setTimeout(function() {
-            document.getElementById("power").style.animation = '';
-            }, 1700);
+            document.getElementsByClassName("floating")[0].style.animation = "pulsate_r 1.5s 1";
+                setTimeout(function() {
+                document.getElementsByClassName("floating")[0].style.animation = '';
+                }, 1700);
+            // document.getElementById("power").style.animation="pulsate_r 1.5s 1";
+            // setTimeout(function() {
+            // document.getElementById("power").style.animation = '';
+            //}, 1700);
             words_left--;
             if (words_left == 0 && power != 0) {
                 location.replace('./credits.html')
