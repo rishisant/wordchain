@@ -58,3 +58,12 @@ function startgame() {
         location.replace('./chainedmode.html')
     }
 }
+
+function animTrigger() {
+    document.getElementById("power").style.animation="pulsate_g 1.5s 1";
+    setTimeout(function() {
+        document.getElementById("power").style.animation = '';
+    }, 1700);
+
+
+}
