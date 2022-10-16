@@ -19,7 +19,7 @@ class Trie
 
     getLastNode(word)
     {
-        if(word === null || word === undefined) 
+        if(word === null || word === undefined || word == "") 
         {
             console.log("ERROR: trie searching undefined or null word");
             return;
@@ -45,7 +45,7 @@ class Trie
             return;
         }
 
-        if(word === null || word === undefined) 
+        if(word === null || word === undefined || word == "") 
         {
             console.log("ERROR: trie adding undefined or null word");
             return;
@@ -69,7 +69,7 @@ class Trie
 
     remove(word, category)
     {
-        if(word === null || word === undefined) 
+        if(word === null || word === undefined || word == "") 
         {
             console.log("ERROR: trie removing undefined or null word");
             return false;
@@ -165,7 +165,7 @@ class SubTrie extends Trie
 
     remove(word)
     {
-        if(word === null || word === undefined) 
+        if(word === null || word === undefined || word == "") 
         {
             console.log("ERROR: trie removing undefined or null word");
             return false;

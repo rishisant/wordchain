@@ -1,2 +1,3 @@
 # word-chain
-Shiritori!!
+Shiritori!
+
