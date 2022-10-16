@@ -53,6 +53,7 @@ function startgame() {
     }
     else if (sessionStorage.getItem("hardmode") == "true") {
         location.replace('./hardmode.html')
+        
     }
     else {
         location.replace('./chainedmode.html')
@@ -65,5 +66,8 @@ function animTrigger() {
         document.getElementById("power").style.animation = '';
     }, 1700);
 
-
 }
+
+// function readFile(filename) {
+//     var fr = new FileReader();
+// }
