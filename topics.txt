@@ -1,0 +1,5 @@
+adjectives
+animals
+body_parts
+countries
+league_characters
