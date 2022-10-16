@@ -83,102 +83,18 @@ function startgame() {
 
     if (sessionStorage.getItem("easymode") == "true") {
         location.replace('./easymode.html')
-        loadTopics();
-        loadMasterDictionary();
-        
-        minv = 0;
-        maxv = 5;
-        randchoice = Math.floor(Math.random() * (maxv-minv));
-        if (randchoice == 0) {
-            selectTopic("fixed", "countries");
-        }
-        else if (randchoice == 1) {
-            selectTopic("fixed", "animals");
-        }
-        else if (randchoice == 2) {
-            selectTopic("fixed", "league_characters");
-        }
-        else if (randchoice == 3) {
-            selectTopic("fixed", "adjectives");
-        }
-        else {
-            selectTopic("fixed", "body_parts");
-        }
         words_left = 10;
     }
     else if (sessionStorage.getItem("mediummode") == "true") {
         location.replace('./mediummode.html')
-        loadTopics();
-        loadMasterDictionary();
-        
-        minv = 0;
-        maxv = 5;
-        randchoice = Math.floor(Math.random() * (maxv-minv));
-        if (randchoice == 0) {
-            selectTopic("fixed", "countries");
-        }
-        else if (randchoice == 1) {
-            selectTopic("fixed", "animals");
-        }
-        else if (randchoice == 2) {
-            selectTopic("fixed", "league_characters");
-        }
-        else if (randchoice == 3) {
-            selectTopic("fixed", "adjectives");
-        }
-        else {
-            selectTopic("fixed", "body_parts");
-        }
         words_left = 8;
     }
     else if (sessionStorage.getItem("hardmode") == "true") {
         location.replace('./hardmode.html')
-        loadTopics();
-        loadMasterDictionary();
-        
-        minv = 0;
-        maxv = 5;
-        randchoice = Math.floor(Math.random() * (maxv-minv));
-        if (randchoice == 0) {
-            selectTopic("fixed", "countries");
-        }
-        else if (randchoice == 1) {
-            selectTopic("fixed", "animals");
-        }
-        else if (randchoice == 2) {
-            selectTopic("fixed", "league_characters");
-        }
-        else if (randchoice == 3) {
-            selectTopic("fixed", "adjectives");
-        }
-        else {
-            selectTopic("fixed", "body_parts");
-        }
         words_left = 5;
     }
     else {
         location.replace('./chainedmode.html')
-        loadTopics();
-        loadMasterDictionary();
-        
-        minv = 0;
-        maxv = 5;
-        randchoice = Math.floor(Math.random() * (maxv-minv));
-        if (randchoice == 0) {
-            selectTopic("fixed", "countries");
-        }
-        else if (randchoice == 1) {
-            selectTopic("fixed", "animals");
-        }
-        else if (randchoice == 2) {
-            selectTopic("fixed", "league_characters");
-        }
-        else if (randchoice == 3) {
-            selectTopic("fixed", "adjectives");
-        }
-        else {
-            selectTopic("fixed", "body_parts");
-        }
         words_left = 3;
     }
 }
@@ -193,11 +109,19 @@ function return_power(word) {
     return power;
 }
 
+function struct_setup() {
+    loadTopics();
+    loadMasterDictionary();
+    selectTopic("fixed", "countries");
+}
+
 function chain() {
     correct = false;
     correct_words = [];
-    text = document.getElementById("inpbox").value;
-    if (master_dictionary.has(text)) {
+    text = document.getElementById("inpbox").value.toLowerCase();
+    // game_dictionary = current topic's dict
+    // .remove() returns a boolean on whether the remove was successful (aka was it there)
+    if (game_dictionary.remove(text)) {
         correct = true;
         words_left--;
         correct_words.add(text);
