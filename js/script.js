@@ -5,7 +5,7 @@ var master_dictionary;
 var game_dictionary;
 var chosen_topics;
 let words_left;
-let power;
+let power = 100;
 var score = {
     'a': 2,
     'b': 6,
@@ -34,6 +34,7 @@ var score = {
     'y': 8,
     'z': 20,
 };
+
 
 // what did you enter??
 function change() {
@@ -116,8 +117,8 @@ function randTopicInt() {
     return Math.floor(Math.random() * (5 - 0)) + 0;
 }
 
+var correct_words = [];
 function chain() {
-    var power = 100;
     x = sessionStorage.getItem("gameready");
     if (x == "true") { 
         loadTopics();
@@ -149,23 +150,56 @@ function chain() {
         sessionStorage.setItem("gameready", "done");
     }
     else {
+        if (correct_words.length == 0) {
+            power = 100;
+        }
         correct = false;
-        correct_words = [];
+        
         text = document.getElementById("inpbox").value.toLowerCase();
-
-        if (game_dictionary.remove(text)) {
+        if (game_dictionary.has(text) && correct_words.length == 0) {
+            game_dictionary.remove(text);
             console.log("correct");
             correct = true;
             words_left--;
-            correct_words.add(text);
+            correct_words.push(text);
             document.getElementById("power").style.animation="pulsate_g 1.5s 1";
             setTimeout(function() {
                 document.getElementById("power").style.animation = '';
             }, 1700);
             power = power - return_power(text);
             document.getElementsByClassName("floating")[0].innerHTML = "<bigtext id=\"power\">" + power + "<sub>" + words_left + "</sub></bigtext></div>";
+            
+        }
+        else if (game_dictionary.has(text) && correct_words.length != 0) {
+            last_word = correct_words[correct_words.length - 1];
+            console.log(last_word);
+            if (text[0] == last_word[last_word.length - 1]) {
+                correct = true;
+                words_left--;
+                correct_words.push(text);
+                document.getElementById("power").style.animation="pulsate_g 1.5s 1";
+                setTimeout(function() {
+                    document.getElementById("power").style.animation = '';
+                }, 1700);
+                power = power - return_power(text);
+                document.getElementsByClassName("floating")[0].innerHTML = "<bigtext id=\"power\">" + power + "<sub>" + words_left + "</sub></bigtext></div>";
+            }
+            else {
+                correct = false;
+                console.log("wrong word " + text);
+                document.getElementById("power").style.animation="pulsate_r 1.5s 1";
+                setTimeout(function() {
+                document.getElementById("power").style.animation = '';
+                }, 1700);
+                words_left--;
+                if (words_left == 0 && power != 0) {
+                    location.replace('./credits.html')
+                }
+                document.getElementsByClassName("floating")[0].innerHTML = "<bigtext id=\"power\">" + power + "<sub>" + words_left + "</sub></bigtext></div>";
+            }
         }
         else {
+            correct = false;
             console.log("wrong word " + text);
             document.getElementById("power").style.animation="pulsate_r 1.5s 1";
             setTimeout(function() {
@@ -179,6 +213,10 @@ function chain() {
         }
         if (words_left == 0 && power != 0) {
             location.replace('./credits.html')
+        }
+        else if (words_left > 0 && power <= 0) {
+            correct_words = [];
+            location.replace('./win.html');
         }
     }
 }
@@ -511,3 +549,4 @@ class TrieNode
         return leafTypeString;
     }
 }
+
