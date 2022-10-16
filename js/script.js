@@ -4,8 +4,8 @@ var all_topics;
 var master_dictionary;
 var game_dictionary;
 var chosen_topics;
-var words_left;
-var power;
+let words_left;
+let power;
 var score = {
     'a': 2,
     'b': 6,
@@ -82,20 +82,24 @@ function startgame() {
     // done
 
     if (sessionStorage.getItem("easymode") == "true") {
-        location.replace('./easymode.html')
+        sessionStorage.setItem("gameready", "true");
         words_left = 10;
+        location.replace('./easymode.html')
     }
     else if (sessionStorage.getItem("mediummode") == "true") {
-        location.replace('./mediummode.html')
+        sessionStorage.setItem("gameready", "true");
         words_left = 8;
+        location.replace('./mediummode.html')
     }
     else if (sessionStorage.getItem("hardmode") == "true") {
-        location.replace('./hardmode.html')
+        sessionStorage.setItem("gameready", "true");
         words_left = 5;
+        location.replace('./hardmode.html')
     }
     else {
-        location.replace('./chainedmode.html')
+        sessionStorage.setItem("gameready", "true");
         words_left = 3;
+        location.replace('./chainedmode.html')
     }
 }
 
@@ -105,40 +109,77 @@ function return_power(word) {
     for(let i = 0; i < word.length; ++i) {
         power += score[word[i]];
     }
-
     return power;
 }
 
-function struct_setup() {
-    loadTopics();
-    loadMasterDictionary();
-    selectTopic("fixed", "countries");
+function randTopicInt() {
+    return Math.floor(Math.random() * (5 - 0)) + 0;
 }
 
 function chain() {
-    correct = false;
-    correct_words = [];
-    text = document.getElementById("inpbox").value.toLowerCase();
-    // game_dictionary = current topic's dict
-    // .remove() returns a boolean on whether the remove was successful (aka was it there)
-    if (game_dictionary.remove(text)) {
-        correct = true;
-        words_left--;
-        correct_words.add(text);
-        document.getElementById("power").style.animation="pulsate_g 1.5s 1";
-        setTimeout(function() {
-            document.getElementById("power").style.animation = '';
-        }, 1700);
-        power -= return_power(text);
-        document.getElementsByClassName("floating")[0].innerHTML = "<bigtext id=\"power\">" + power + "<sub>" + words_left + "</sub></bigtext></div>";
+    var power = 100;
+    x = sessionStorage.getItem("gameready");
+    if (x == "true") { 
+        loadTopics();
+        loadMasterDictionary();
+        if (sessionStorage.getItem("easymode") == "true") { words_left = 10; }
+        else if (sessionStorage.getItem("mediummode") == "true") { words_left = 8; }
+        else if (sessionStorage.getItem("hardmode") == "true") { words_left = 5; }
+        else { words_left = 3; }
+        if (randTopicInt() == 0) {
+            selectTopic("fixed", "countries"); 
+            document.getElementById("topic").innerHTML = "Topic: Countries";
+        }
+        else if (randTopicInt() == 1) {
+            selectTopic("fixed", "animals");
+            document.getElementById("topic").innerHTML = "Topic: Animals";
+        }
+        else if (randTopicInt() == 2) {
+            selectTopic("fixed", "body_parts");
+            document.getElementById("topic").innerHTML = "Topic: Human Body Parts";
+        }
+        else if (randTopicInt() == 3) {
+            selectTopic("fixed", "adjectives");
+            document.getElementById("topic").innerHTML = "Topic: Adjectives";
+        }
+        else {
+            selectTopic("fixed", "league_characters");
+            document.getElementById("topic").innerHTML = "Topic: League of Legends Characters";
+        }
+        sessionStorage.setItem("gameready", "done");
     }
     else {
-        document.getElementById("power").style.animation="pulsate_r 1.5s 1";
-        setTimeout(function() {
-        document.getElementById("power").style.animation = '';
-        }, 1700);
-        words_left--;
-        document.getElementsByClassName("floating")[0].innerHTML = "<bigtext id=\"power\">" + power + "<sub>" + words_left + "</sub></bigtext></div>";
+        correct = false;
+        correct_words = [];
+        text = document.getElementById("inpbox").value.toLowerCase();
+
+        if (game_dictionary.remove(text)) {
+            console.log("correct");
+            correct = true;
+            words_left--;
+            correct_words.add(text);
+            document.getElementById("power").style.animation="pulsate_g 1.5s 1";
+            setTimeout(function() {
+                document.getElementById("power").style.animation = '';
+            }, 1700);
+            power = power - return_power(text);
+            document.getElementsByClassName("floating")[0].innerHTML = "<bigtext id=\"power\">" + power + "<sub>" + words_left + "</sub></bigtext></div>";
+        }
+        else {
+            console.log("wrong word " + text);
+            document.getElementById("power").style.animation="pulsate_r 1.5s 1";
+            setTimeout(function() {
+            document.getElementById("power").style.animation = '';
+            }, 1700);
+            words_left--;
+            if (words_left == 0 && power != 0) {
+                location.replace('./credits.html')
+            }
+            document.getElementsByClassName("floating")[0].innerHTML = "<bigtext id=\"power\">" + power + "<sub>" + words_left + "</sub></bigtext></div>";
+        }
+        if (words_left == 0 && power != 0) {
+            location.replace('./credits.html')
+        }
     }
 }
 
@@ -267,6 +308,7 @@ class Trie
         let lastNode = this.getLastNode(word);
         if(lastNode == null || !lastNode.hasLeafType(category))
         {
+            console.log("this word doesn't exist");
             return false;
         }
         
